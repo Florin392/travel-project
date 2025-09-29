@@ -1,7 +1,6 @@
 import { ID, OAuthProvider, Query } from "appwrite";
 import { account, appwriteConfig, database } from "./client";
 import { redirect } from "react-router";
-import { log } from "console";
 
 export const loginWithGoogle = async () => {
   try {
