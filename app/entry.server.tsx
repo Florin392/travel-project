@@ -1,12 +1,12 @@
 import "./instrument.server";
 import { PassThrough } from "node:stream";
 import * as Sentry from "@sentry/react-router";
-import type { AppLoadContext, EntryContext } from "react-router";
 import { createReadableStreamFromReadable } from "@react-router/node";
 import { ServerRouter } from "react-router";
 import { isbot } from "isbot";
 import type { RenderToPipeableStreamOptions } from "react-dom/server";
 import { renderToPipeableStream } from "react-dom/server";
+import type {  EntryContext } from "react-router";
 
 export const streamTimeout = 5_000;
 
@@ -15,9 +15,7 @@ function handleRequest(
   responseStatusCode: number,
   responseHeaders: Headers,
   routerContext: EntryContext,
-  loadContext: AppLoadContext
-  // If you have middleware enabled:
-  // loadContext: RouterContextProvider
+  loadContext: any
 ) {
   return new Promise((resolve, reject) => {
     let shellRendered = false;
