@@ -13,7 +13,6 @@ const SignIn = () => {
         const user = await account.get();
 
         if (user?.$id) {
-          await storeUserData();
           navigate("/dashboard", { replace: true });
         }
       } catch (e) {
