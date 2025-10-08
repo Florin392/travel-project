@@ -17,16 +17,6 @@ export async function clientLoader() {
     }
 
     return existingUser?.$id ? existingUser : await storeUserData();
-    // if (!existingUser) {
-    //   const newUser = await storeUserData();
-    //   return newUser;
-    // }
-
-    // if (existingUser.status !== "admin") {
-    //   throw redirect("/sign-in");
-    // }
-
-    // return existingUser;
   } catch (e) {
     if (e instanceof Response) throw e;
     console.log("Error in clientLoader", e);

@@ -1,29 +1,25 @@
-import { Link, redirect, useNavigate } from "react-router";
+import { Link, redirect } from "react-router";
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 import { loginWithGoogle, storeUserData } from "~/appwrite/auth";
 import { account } from "~/appwrite/client";
-import { useEffect } from "react";
+
+export async function clientLoader() {
+  try {
+    const user = await account.get();
+
+    if (user?.$id) {
+      await storeUserData();
+      throw redirect("/dashboard");
+    }
+  } catch (e) {
+    if (e instanceof Response) throw e;
+    console.log("Error fetching user", e);
+  }
+
+  return null;
+}
 
 const SignIn = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const checkAuthAndRedirect = async () => {
-      try {
-        const user = await account.get();
-
-        if (user?.$id) {
-          navigate("/dashboard", { replace: true });
-        }
-      } catch (e) {
-        // User not authenticated, stay on sign-in page
-        console.log("No active session", e);
-      }
-    };
-
-    checkAuthAndRedirect();
-  }, [navigate]);
-
   return (
     <main className="auth">
       <section className="size-full glassmorphism flex-center px-6">
