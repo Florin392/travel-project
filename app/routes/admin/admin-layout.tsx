@@ -12,11 +12,22 @@ export async function clientLoader() {
 
     const existingUser = await getExistingUser(user.$id);
 
-    if (existingUser?.status === "user") {
-      return redirect("/");
+    // If user doesn't exist yet, create them
+    if (!existingUser?.$id) {
+      const newUser = await storeUserData();
+      // New users are created with status "user", so redirect them away
+      if (newUser?.status !== "admin") {
+        throw redirect("/");
+      }
+      return newUser;
     }
 
-    return existingUser?.$id ? existingUser : await storeUserData();
+    // If existing user is not admin, redirect them away
+    if (existingUser.status !== "admin") {
+      throw redirect("/");
+    }
+
+    return existingUser;
   } catch (e) {
     if (e instanceof Response) throw e;
     console.log("Error in clientLoader", e);

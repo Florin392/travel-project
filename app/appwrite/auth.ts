@@ -96,9 +96,9 @@ export const loginWithGoogle = () => {
   console.log("Failure URL:", `${window.location.origin}/sign-in`);
 
   try {
-    account.createOAuth2Session({
+    account.createOAuth2Token({
       provider: OAuthProvider.Google,
-      success: `${window.location.origin}/sign-in`,
+      success: `${window.location.origin}/auth/callback`,
       failure: `${window.location.origin}/sign-in`,
     });
     console.log("OAuth session created - should redirect now");
