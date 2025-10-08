@@ -11,8 +11,7 @@ const MobileSidebar = () => {
   };
 
   return (
-    //remove mt-10
-    <div className="mobile-sidebar wrapper mt-10">
+    <div className="mobile-sidebar wrapper">
       <header>
         <Link to="/">
           <img
