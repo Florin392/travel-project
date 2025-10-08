@@ -82,7 +82,7 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
           country: formData.country,
           numberOfDays: formData.duration,
           travelStyle: formData.travelStyle,
-          interface: formData.interest,
+          interests: formData.interest,
           budget: formData.budget,
           groupType: formData.groupType,
           userId: user.$id,
@@ -93,8 +93,6 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
 
       if (result?.id) navigate(`/trips/${result.id}`);
       else console.error("Failed to generate the trip");
-
-      
     } catch (e) {
       console.log("Error generating trip", e);
     } finally {
